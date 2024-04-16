@@ -9,16 +9,17 @@ const printMsg = require('../utils/print.js');
 const { print } = require('./config/constants.js');
 const syncDatabase = require('../models/syncDatabase.js');
 
-
+/* Middlewares */
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(api.PREFIJO, routes);
 
+/* Sincronización de la base de datos e inicio del servidor */
 syncDatabase()
   .then(() => {
     // Iniciar el servidor
-    app.listen(api.PORT, api.HOST, async () => {
+    app.listen(api.PORT, async () => {
         printMsg(`Aplicación corriendo en http://localhost:${api.PORT}${api.PREFIJO}`,print.TYPE.TEST);
     });
   })
